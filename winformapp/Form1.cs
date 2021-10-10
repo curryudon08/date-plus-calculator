@@ -27,8 +27,26 @@ namespace winformapp
             //入力箇所の初期化
             this.comboBox.SelectedIndex = 0;
             this.plusDate.Value = 1;
+            this.numLabel.Text = "日後";
             //結果の初期化
             this.resultDateLabel.Text = "YYYY年MM月DD日（月）";
+        }
+
+        /// <summary>
+        /// コンボボックスの選択に合わせて、～後の表示を変更する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void combobox_TextChanged(object sender, EventArgs e)
+        {
+            var idx = this.comboBox.SelectedIndex;
+            if(idx == 0){
+                this.numLabel.Text = "日後";
+            }else if(idx == 1){
+                this.numLabel.Text = "週後";
+            }else{
+                this.numLabel.Text = "月後";
+            }
         }
 
         /// <summary>

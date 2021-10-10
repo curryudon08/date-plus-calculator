@@ -44,6 +44,7 @@ namespace winformapp
         private DateTimePicker picker;
         private ComboBox comboBox;
         private NumericUpDown plusDate;
+        private Label numLabel;
 
         /// <summary>
         /// 入力箇所のコントロールの初期設定
@@ -86,16 +87,24 @@ namespace winformapp
             this.comboBox.Items.Add("+日数");
             this.comboBox.Items.Add("+週数");
             this.comboBox.Items.Add("+月数");
+            this.comboBox.TextChanged += new EventHandler(this.combobox_TextChanged);
             this.inputGroup.Controls.Add(this.comboBox);
 
             //加算する日数
             this.plusDate = new NumericUpDown();
             this.plusDate.Location = new Point(80,115);
-            this.plusDate.Size = new Size(75,25);
+            this.plusDate.Size = new Size(60,25);
             this.plusDate.ThousandsSeparator = true;
             this.plusDate.Minimum = 0;
             this.plusDate.Maximum = 100000;
             this.inputGroup.Controls.Add(this.plusDate);
+
+            //ラベル（日後 or 週後 or 月後）
+            this.numLabel = new Label();
+            this.numLabel.Location = new Point(140,115);
+            this.numLabel.Size = new Size(40,25);
+            this.numLabel.Font = new Font("Arial",12);
+            this.inputGroup.Controls.Add(this.numLabel);
 
             this.Controls.Add(this.inputGroup);
         }
