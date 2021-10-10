@@ -75,8 +75,8 @@ namespace winformapp
             //加算する日数ラベル
             var plusLabel = new Label();
             plusLabel.Location = new Point(10,90);
-            plusLabel.Size = new Size(100,25);
-            plusLabel.Text = "加算する日数";
+            plusLabel.Size = new Size(200,25);
+            plusLabel.Text = "加算する値(1～100,000)";
             plusLabel.Font = new Font("Arial",8);
             this.inputGroup.Controls.Add(plusLabel);
 
@@ -95,7 +95,7 @@ namespace winformapp
             this.plusDate.Location = new Point(80,115);
             this.plusDate.Size = new Size(60,25);
             this.plusDate.ThousandsSeparator = true;
-            this.plusDate.Minimum = 0;
+            this.plusDate.Minimum = 1;
             this.plusDate.Maximum = 100000;
             this.inputGroup.Controls.Add(this.plusDate);
 
@@ -127,7 +127,7 @@ namespace winformapp
             this.resultDateLabel = new Label();
             this.resultDateLabel.AutoSize = false;
             this.resultDateLabel.Location = new Point(10,25);
-            this.resultDateLabel.Size = new Size(175,25);
+            this.resultDateLabel.Size = new Size(175,50);
             this.resultDateLabel.Font = new Font("Arial",8);
             this.resultGroup.Controls.Add(this.resultDateLabel);
 

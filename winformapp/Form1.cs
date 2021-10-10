@@ -59,7 +59,9 @@ namespace winformapp
             try{
                 var afterDate = CalcDate(this.picker.Value, (int)this.plusDate.Value);
                 this.ShowCalcResult(afterDate);
-            }catch{
+            }catch(ArgumentOutOfRangeException){
+                this.resultDateLabel.Text = "9999年12月31日を\n超える日付は計算できません。";
+            }catch(Exception){
                 MessageBox.Show("不正なエラーが発生しました");
             }
         }
