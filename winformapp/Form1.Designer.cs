@@ -1,4 +1,7 @@
-﻿namespace winformapp
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace winformapp
 {
     partial class Form1
     {
@@ -29,12 +32,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.SetupForms();
+            //this.SetupControls();
         }
+
+        /// <summary>
+        /// フォールの初期設定
+        /// </summary>
+        private void SetupForms()
+        {
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            this.ClientSize = new Size(600,400);
+            this.Text = "日付計算";
+            this.Name = "日付計算";
+        }
+
 
         #endregion
     }
 }
-
