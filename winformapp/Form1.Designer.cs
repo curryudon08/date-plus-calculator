@@ -43,7 +43,7 @@ namespace winformapp
             execBtn.Size = new Size(50,25);
             execBtn.Text = "計算";
             execBtn.Font  = new Font("Arial",12);
-            execBtn.Click += new EventHandler(execBtn_Click);
+            execBtn.Click += new EventHandler(this.execBtn_Click);
             this.Controls.Add(execBtn);
         }
 
@@ -118,6 +118,7 @@ namespace winformapp
             this.dayPlusRadioBtn = new RadioButton();
             this.dayPlusRadioBtn.Location = new Point(25,75);
             this.dayPlusRadioBtn.Size = new Size(25,25);
+            this.dayPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
             this.inputGroup.Controls.Add(this.dayPlusRadioBtn);
 
             //X日後の入力欄
@@ -139,6 +140,7 @@ namespace winformapp
             this.weekPlusRadioBtn = new RadioButton();
             this.weekPlusRadioBtn.Location = new Point(25,100);
             this.weekPlusRadioBtn.Size = new Size(25,25);
+            this.weekPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
             this.inputGroup.Controls.Add(this.weekPlusRadioBtn);
 
             //X週間後の入力欄
@@ -160,6 +162,7 @@ namespace winformapp
             this.monthPlusRadioBtn = new RadioButton();
             this.monthPlusRadioBtn.Location = new Point(25,125);
             this.monthPlusRadioBtn.Size = new Size(25,25);
+            this.monthPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
             this.inputGroup.Controls.Add(this.monthPlusRadioBtn);
 
             //X月後の入力欄

@@ -37,6 +37,13 @@ namespace winformapp
             this.resultDateLabel.Text = "YYYY年MM月DD日（月）";
         }
 
+        private void radiobutton_CheckedChanged(object sender, EventArgs e)
+        {
+            this.dayPlusText.Enabled = this.dayPlusRadioBtn.Checked;
+            this.weekPlusText.Enabled = this.weekPlusRadioBtn.Checked;
+            this.monthPlusText.Enabled = this.monthPlusRadioBtn.Checked;
+        }
+
         private void execBtn_Click(object sender, EventArgs e)
         {
             try{
