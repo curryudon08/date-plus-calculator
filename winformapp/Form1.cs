@@ -25,25 +25,10 @@ namespace winformapp
         private void InitializeDisplay()
         {
             //入力箇所の初期化
-            this.dayPlusRadioBtn.Checked = true;
-            this.dayPlusText.Text = "1";
-            this.weekPlusText.Text = "1";
-            this.monthPlusText.Text = "1";
-
+            this.comboBox.SelectedIndex = 0;
+            this.plusDate.Text = "1";
             //結果の初期化
             this.resultDateLabel.Text = "YYYY年MM月DD日（月）";
-        }
-
-        /// <summary>
-        /// ラジオボタン変更時、チェックされた箇所のみアクティブにする
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void plusTextRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            this.dayPlusText.Enabled = this.dayPlusRadioBtn.Checked;
-            this.weekPlusText.Enabled = this.weekPlusRadioBtn.Checked;
-            this.monthPlusText.Enabled = this.monthPlusRadioBtn.Checked;
         }
 
         /// <summary>
@@ -55,7 +40,8 @@ namespace winformapp
         {
             try{
                 var date = this.picker.Value;
-                var afterDate = CalcDate(date);
+                var d = int.Parse(this.plusDate.Text);
+                var afterDate = CalcDate(date,d);
                 this.ShowCalcResult(afterDate);
             }catch{
                 MessageBox.Show("不正なエラーが発生しました");
@@ -78,20 +64,16 @@ namespace winformapp
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        private DateTime CalcDate(DateTime date)
+        private DateTime CalcDate(DateTime date, int d)
         {
-            if(this.dayPlusRadioBtn.Checked){
-                var d = int.Parse(this.dayPlusText.Text);
+            var idx = this.comboBox.SelectedIndex;
+            if(idx == 0){
                 return date.AddDays(d);
             }
-
-            if(this.weekPlusRadioBtn.Checked){
-                var d = int.Parse(this.weekPlusText.Text) * 7;
-                return date.AddDays(d);
+            if(idx == 1){
+                return date.AddDays(d * 7);
             }
-
-            var m = int.Parse(this.monthPlusText.Text);
-            return date.AddMonths(m);
+            return date.AddMonths(d);
         }
     }
 }

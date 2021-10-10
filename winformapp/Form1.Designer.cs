@@ -37,24 +37,13 @@ namespace winformapp
             this.SetupForms();
             this.SetupInputControls();
             this.SetupResultControls();
-            //計算ボタン
-            var execBtn = new Button();
-            execBtn.Location = new Point(225,150);
-            execBtn.Size = new Size(50,25);
-            execBtn.Text = "計算";
-            execBtn.Font  = new Font("Arial",12);
-            execBtn.Click += new EventHandler(this.execBtn_Click);
-            this.Controls.Add(execBtn);
+            this.SetupButtonControls();
         }
 
         private GroupBox inputGroup;
         private DateTimePicker picker;
-        private RadioButton dayPlusRadioBtn;
-        private RadioButton weekPlusRadioBtn;
-        private RadioButton monthPlusRadioBtn;
-        private TextBox dayPlusText;
-        private TextBox weekPlusText;
-        private TextBox monthPlusText;
+        private ComboBox comboBox;
+        private TextBox plusDate;
 
         /// <summary>
         /// 入力箇所のコントロールの初期設定
@@ -67,79 +56,44 @@ namespace winformapp
             this.inputGroup.Text = "日付";
             this.inputGroup.FlatStyle = FlatStyle.Standard;
 
+            //元の日付ラベル
+            var pickerLabel = new Label();
+            pickerLabel.Location = new Point(10,25);
+            pickerLabel.Size = new Size(75,25);
+            pickerLabel.Text = "元の日付";
+            pickerLabel.Font = new Font("Arial",8);
+            this.inputGroup.Controls.Add(pickerLabel);
+
             //元の日付
             this.picker = new DateTimePicker();
-            this.picker.Location = new Point(25,25);
+            this.picker.Location = new Point(10,50);
             this.picker.Size = new Size(150,25);
             this.picker.CustomFormat = "yyyy年MM月dd日";
             this.inputGroup.Controls.Add(this.picker);
 
-            //X日後のラジオボタン
-            this.dayPlusRadioBtn = new RadioButton();
-            this.dayPlusRadioBtn.Location = new Point(25,75);
-            this.dayPlusRadioBtn.Size = new Size(25,25);
-            this.dayPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
-            this.inputGroup.Controls.Add(this.dayPlusRadioBtn);
+            //加算する日数ラベル
+            var plusLabel = new Label();
+            plusLabel.Location = new Point(10,90);
+            plusLabel.Size = new Size(100,25);
+            plusLabel.Text = "加算する日数";
+            plusLabel.Font = new Font("Arial",8);
+            this.inputGroup.Controls.Add(plusLabel);
 
-            //X日後の入力欄
-            this.dayPlusText = new TextBox();
-            this.dayPlusText.Location = new Point(50,75);
-            this.dayPlusText.Size = new Size(50,25);
-            this.dayPlusText.MaxLength = 5;
-            //this.dayPlusText.Validating += new CancelEventHandler(this.dayPlusText_Validating);
-            this.inputGroup.Controls.Add(this.dayPlusText);
+            //加算する日数の種類
+            this.comboBox = new ComboBox();
+            this.comboBox.Location = new Point(10,115);
+            this.comboBox.Size = new Size(60,25);
+            this.comboBox.Items.Add("+日数");
+            this.comboBox.Items.Add("+週数");
+            this.comboBox.Items.Add("+月数");
+            this.inputGroup.Controls.Add(this.comboBox);
 
-            //ラベル（日後）
-            var dayPlusLabel = new Label();
-            dayPlusLabel.Location = new Point(100,75);
-            dayPlusLabel.Size = new Size(50,25);
-            dayPlusLabel.Text = "日後";
-            dayPlusLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(dayPlusLabel);
-
-            //X週間後のラジオボタン
-            this.weekPlusRadioBtn = new RadioButton();
-            this.weekPlusRadioBtn.Location = new Point(25,100);
-            this.weekPlusRadioBtn.Size = new Size(25,25);
-            this.weekPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
-            this.inputGroup.Controls.Add(this.weekPlusRadioBtn);
-
-            //X週間後の入力欄
-            this.weekPlusText = new TextBox();
-            this.weekPlusText.Location = new Point(50,100);
-            this.weekPlusText.Size = new Size(50,25);
-            this.weekPlusText.MaxLength = 5;
-            this.inputGroup.Controls.Add(this.weekPlusText);
-
-            //ラベル（週間後）
-            var weekPlusLabel = new Label();
-            weekPlusLabel.Location = new Point(100,100);
-            weekPlusLabel.Size = new Size(50,25);
-            weekPlusLabel.Text = "週後";
-            weekPlusLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(weekPlusLabel);
-
-            //XX月後のラジオボタン
-            this.monthPlusRadioBtn = new RadioButton();
-            this.monthPlusRadioBtn.Location = new Point(25,125);
-            this.monthPlusRadioBtn.Size = new Size(25,25);
-            this.monthPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
-            this.inputGroup.Controls.Add(this.monthPlusRadioBtn);
-
-            //X月後の入力欄
-            this.monthPlusText = new TextBox();
-            this.monthPlusText.Location = new Point(50,125);
-            this.monthPlusText.Size = new Size(50,25);
-            this.monthPlusText.MaxLength = 5;
-            this.inputGroup.Controls.Add(this.monthPlusText);
-
-            //ラベル（月後）
-            var monthPlusLabel = new Label();
-            monthPlusLabel.Location = new Point(100,125);
-            monthPlusLabel.Size = new Size(50,25);
-            monthPlusLabel.Text = "月後";
-            monthPlusLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(monthPlusLabel);
+            //加算する日数
+            this.plusDate = new TextBox();
+            this.plusDate.Location = new Point(80,115);
+            this.plusDate.Size = new Size(50,25);
+            this.plusDate.MaxLength = 5;
+            this.inputGroup.Controls.Add(this.plusDate);
 
             this.Controls.Add(this.inputGroup);
         }
@@ -154,19 +108,34 @@ namespace winformapp
         {
             this.resultGroup = new GroupBox();
             this.resultGroup.AutoSize = true;
-            this.resultGroup.Location = new Point(10,200);
+            this.resultGroup.Location = new Point(10,175);
             this.resultGroup.Text = "結果";
             this.resultGroup.FlatStyle = FlatStyle.Standard;
 
             //結果表示
             this.resultDateLabel = new Label();
             this.resultDateLabel.AutoSize = false;
-            this.resultDateLabel.Location = new Point(25,25);
+            this.resultDateLabel.Location = new Point(10,25);
             this.resultDateLabel.Size = new Size(175,25);
-            this.resultDateLabel.Font = new Font("Arial",10);
+            this.resultDateLabel.Font = new Font("Arial",8);
             this.resultGroup.Controls.Add(this.resultDateLabel);
 
             this.Controls.Add(this.resultGroup);
+        }
+
+        /// <summary>
+        /// ボタン類のコントロールの初期設定
+        /// </summary>
+        private void SetupButtonControls()
+        {
+            //計算実行ボタン
+            var execBtn = new Button();
+            execBtn.Location = new Point(225,125);
+            execBtn.Size = new Size(50,25);
+            execBtn.Text = "計算";
+            execBtn.Font  = new Font("Arial",12);
+            execBtn.Click += new EventHandler(this.execBtn_Click);
+            this.Controls.Add(execBtn);
         }
 
         /// <summary>
