@@ -190,15 +190,16 @@ namespace winformapp
         {
             this.resultGroup = new GroupBox();
             this.resultGroup.AutoSize = true;
-            this.resultGroup.Location = new Point(225,10);
+            this.resultGroup.Location = new Point(10,200);
             this.resultGroup.Text = "結果";
             this.resultGroup.FlatStyle = FlatStyle.Standard;
 
             //結果表示
             this.resultDateLabel = new Label();
+            this.resultDateLabel.AutoSize = false;
             this.resultDateLabel.Location = new Point(25,25);
-            this.resultDateLabel.Size = new Size(100,25);
-            this.resultDateLabel.Font = new Font("Arial",12);
+            this.resultDateLabel.Size = new Size(175,25);
+            this.resultDateLabel.Font = new Font("Arial",10);
             this.resultGroup.Controls.Add(this.resultDateLabel);
 
             this.Controls.Add(this.resultGroup);
@@ -211,7 +212,7 @@ namespace winformapp
         {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            this.ClientSize = new Size(400,200);
+            this.ClientSize = new Size(300,300);
             this.Text = "日付計算";
         }
 
