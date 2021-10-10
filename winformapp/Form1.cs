@@ -25,9 +25,6 @@ namespace winformapp
         private void InitializeDisplay()
         {
             //入力箇所の初期化
-            this.yearNowText.Text = DateTime.Now.Year.ToString();
-            this.monthNowText.Text = DateTime.Now.Month.ToString();
-            this.dayNowText.Text = DateTime.Now.Day.ToString();
             this.dayPlusRadioBtn.Checked = true;
             this.dayPlusText.Text = "1";
             this.weekPlusText.Text = "1";
@@ -37,24 +34,31 @@ namespace winformapp
             this.resultDateLabel.Text = "YYYY年MM月DD日（月）";
         }
 
-        private void radiobutton_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// ラジオボタン変更時、チェックされた箇所のみアクティブにする
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void plusTextRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             this.dayPlusText.Enabled = this.dayPlusRadioBtn.Checked;
             this.weekPlusText.Enabled = this.weekPlusRadioBtn.Checked;
             this.monthPlusText.Enabled = this.monthPlusRadioBtn.Checked;
         }
 
+        /// <summary>
+        /// 計算ボタンクリック時、日付計算を実行する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void execBtn_Click(object sender, EventArgs e)
         {
             try{
-                var y = int.Parse(this.yearNowText.Text);
-                var m = int.Parse(this.monthNowText.Text);
-                var d = int.Parse(this.dayNowText.Text);
-                var date = new DateTime(y,m,d);
+                var date = this.picker.Value;
                 var afterDate = CalcDate(date);
                 this.ShowCalcResult(afterDate);
-            }catch(Exception ex){
-                MessageBox.Show(ex.ToString());
+            }catch{
+                MessageBox.Show("不正なエラーが発生しました");
             }
         }
 

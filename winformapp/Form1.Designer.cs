@@ -48,9 +48,7 @@ namespace winformapp
         }
 
         private GroupBox inputGroup;
-        private TextBox yearNowText;
-        private TextBox monthNowText;
-        private TextBox dayNowText;
+        private DateTimePicker picker;
         private RadioButton dayPlusRadioBtn;
         private RadioButton weekPlusRadioBtn;
         private RadioButton monthPlusRadioBtn;
@@ -69,56 +67,18 @@ namespace winformapp
             this.inputGroup.Text = "日付";
             this.inputGroup.FlatStyle = FlatStyle.Standard;
 
-            //年の入力欄
-            this.yearNowText = new TextBox();
-            this.yearNowText.Location = new Point(25,25);
-            this.yearNowText.Size = new Size(50,25);
-            this.yearNowText.MaxLength = 4;
-            this.inputGroup.Controls.Add(this.yearNowText);
-
-            //ラベル（年）
-            var yearLabel = new Label();
-            yearLabel.Location = new Point(75,25);
-            yearLabel.Size = new Size(25,25);
-            yearLabel.Text = "年";
-            yearLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(yearLabel);
-
-            //月の入力欄
-            this.monthNowText = new TextBox();
-            this.monthNowText.Location = new Point(100,25);
-            this.monthNowText.Size = new Size(25,25);
-            this.monthNowText.MaxLength = 2;
-            this.inputGroup.Controls.Add(this.monthNowText);
-
-            //ラベル（月）
-            var monthLabel = new Label();
-            monthLabel.Location = new Point(125,25);
-            monthLabel.Size = new Size(25,25);
-            monthLabel.Text = "月";
-            monthLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(monthLabel);
-
-            //日の入力欄
-            this.dayNowText = new TextBox();
-            this.dayNowText.Location = new Point(150,25);
-            this.dayNowText.Size = new Size(25,25);
-            this.dayNowText.MaxLength = 2;
-            this.inputGroup.Controls.Add(this.dayNowText);
-
-            //ラベル（日）
-            var dayLabel = new Label();
-            dayLabel.Location = new Point(175,25);
-            dayLabel.Size = new Size(25,25);
-            dayLabel.Text = "日";
-            dayLabel.Font = new Font("Arial",12);
-            this.inputGroup.Controls.Add(dayLabel);
+            //元の日付
+            this.picker = new DateTimePicker();
+            this.picker.Location = new Point(25,25);
+            this.picker.Size = new Size(150,25);
+            this.picker.CustomFormat = "yyyy年MM月dd日";
+            this.inputGroup.Controls.Add(this.picker);
 
             //X日後のラジオボタン
             this.dayPlusRadioBtn = new RadioButton();
             this.dayPlusRadioBtn.Location = new Point(25,75);
             this.dayPlusRadioBtn.Size = new Size(25,25);
-            this.dayPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
+            this.dayPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
             this.inputGroup.Controls.Add(this.dayPlusRadioBtn);
 
             //X日後の入力欄
@@ -126,6 +86,7 @@ namespace winformapp
             this.dayPlusText.Location = new Point(50,75);
             this.dayPlusText.Size = new Size(50,25);
             this.dayPlusText.MaxLength = 5;
+            //this.dayPlusText.Validating += new CancelEventHandler(this.dayPlusText_Validating);
             this.inputGroup.Controls.Add(this.dayPlusText);
 
             //ラベル（日後）
@@ -140,7 +101,7 @@ namespace winformapp
             this.weekPlusRadioBtn = new RadioButton();
             this.weekPlusRadioBtn.Location = new Point(25,100);
             this.weekPlusRadioBtn.Size = new Size(25,25);
-            this.weekPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
+            this.weekPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
             this.inputGroup.Controls.Add(this.weekPlusRadioBtn);
 
             //X週間後の入力欄
@@ -162,7 +123,7 @@ namespace winformapp
             this.monthPlusRadioBtn = new RadioButton();
             this.monthPlusRadioBtn.Location = new Point(25,125);
             this.monthPlusRadioBtn.Size = new Size(25,25);
-            this.monthPlusRadioBtn.CheckedChanged += new EventHandler(this.radiobutton_CheckedChanged);
+            this.monthPlusRadioBtn.CheckedChanged += new EventHandler(this.plusTextRadioButton_CheckedChanged);
             this.inputGroup.Controls.Add(this.monthPlusRadioBtn);
 
             //X月後の入力欄
