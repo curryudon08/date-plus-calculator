@@ -43,7 +43,7 @@ namespace winformapp
         private GroupBox inputGroup;
         private DateTimePicker picker;
         private ComboBox comboBox;
-        private TextBox plusDate;
+        private NumericUpDown plusDate;
 
         /// <summary>
         /// 入力箇所のコントロールの初期設定
@@ -89,10 +89,12 @@ namespace winformapp
             this.inputGroup.Controls.Add(this.comboBox);
 
             //加算する日数
-            this.plusDate = new TextBox();
+            this.plusDate = new NumericUpDown();
             this.plusDate.Location = new Point(80,115);
-            this.plusDate.Size = new Size(50,25);
-            this.plusDate.MaxLength = 5;
+            this.plusDate.Size = new Size(75,25);
+            this.plusDate.ThousandsSeparator = true;
+            this.plusDate.Minimum = 0;
+            this.plusDate.Maximum = 100000;
             this.inputGroup.Controls.Add(this.plusDate);
 
             this.Controls.Add(this.inputGroup);

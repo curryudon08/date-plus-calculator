@@ -26,7 +26,7 @@ namespace winformapp
         {
             //入力箇所の初期化
             this.comboBox.SelectedIndex = 0;
-            this.plusDate.Text = "1";
+            this.plusDate.Value = 1;
             //結果の初期化
             this.resultDateLabel.Text = "YYYY年MM月DD日（月）";
         }
@@ -39,9 +39,7 @@ namespace winformapp
         private void execBtn_Click(object sender, EventArgs e)
         {
             try{
-                var date = this.picker.Value;
-                var d = int.Parse(this.plusDate.Text);
-                var afterDate = CalcDate(date,d);
+                var afterDate = CalcDate(this.picker.Value, (int)this.plusDate.Value);
                 this.ShowCalcResult(afterDate);
             }catch{
                 MessageBox.Show("不正なエラーが発生しました");
@@ -51,6 +49,7 @@ namespace winformapp
         /// <summary>
         /// 計算結果を画面に表示する
         /// </summary>
+        /// <param name="date">画面表示する日付</param>
         private void ShowCalcResult(DateTime date)
         {
             var strdate = date.ToString("yyyy年MM月dd日");
@@ -59,10 +58,12 @@ namespace winformapp
             this.resultDateLabel.Text = $"{strdate}（{strdayofweek}）";
         }
 
+
         /// <summary>
         /// 加算後の日付を計算する
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="date">加算前の日付</param>
+        /// <param name="d">加算する日付</param>
         /// <returns></returns>
         private DateTime CalcDate(DateTime date, int d)
         {
